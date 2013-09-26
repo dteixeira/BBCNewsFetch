@@ -8,20 +8,20 @@ module NewsFetch
       @id, @url, @title, @description, @body, @topic = args
     end
 
-    def parse_news(page)
+    def parse_news!(page)
       @body = ''
-      if(page.css('div.article'))
+      if(page.at_css('div.article'))
         page = page.css('div.story-body div.article p')
       else
         page = page.css('div.story-body p')
       end
       page.xpath('//@*').remove
-      page.each { |child| @body += clear_line(child) }
+      page.each { |child| @body << clear_line(child) }
     end
 
     private
-    def clear_line line
-      line.content.strip().gsub(/\s+/, ' ') + "\n"
+    def clear_line(line)
+      return (line.content.strip().gsub(/\s+/, ' ') + "\n")
     end
   end
 end

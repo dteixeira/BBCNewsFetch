@@ -60,7 +60,7 @@ module NewsFetch
             news[:description],
             '',
             topic)
-          n.parse_news(Nokogiri::HTML(open(news[:link])))
+          n.parse_news!(Nokogiri::HTML(open(news[:link])))
           @lock.synchronize { @news[topic] << n }
         end
       rescue Exception => e
