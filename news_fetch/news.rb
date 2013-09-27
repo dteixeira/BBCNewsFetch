@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 require 'nokogiri'
 
 module NewsFetch
@@ -15,13 +17,12 @@ module NewsFetch
       else
         page = page.css('div.story-body p')
       end
-      page.xpath('//@*').remove
       page.each { |child| @body << clear_line(child) }
     end
 
     private
     def clear_line(line)
-      return (line.content.strip().gsub(/\s+/, ' ') + "\n")
+      return (line.content.strip().gsub(/\s+/, ' ').gsub('&', 'and')+ "\n")
     end
   end
 end

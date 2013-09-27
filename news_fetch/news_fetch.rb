@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 # lib requires
 require File.join(File.dirname(__FILE__), 'news.rb')
 
@@ -26,6 +28,35 @@ module NewsFetch
       @topics = nil
       @news = nil
       @lock = Mutex.new
+    end
+
+    def topics_to_xml
+      builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
+        xml.topics {
+          @topics.each { |topic| xml.topics(id: topic[:id], title: topic[:title]) } if @topics
+        }
+      end
+      builder.to_xml
+    end
+
+    def news_to_xml
+      builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |xml|
+        xml.bulletin {
+          @news.each { |topic, news|
+            xml.topic(id: topic) {
+              news.each do |n|
+                xml.news(id: n.id) {
+                  xml.title_ n.title
+                  xml.description_ n.description
+                  xml.url_ n.url
+                  xml.body_ n.body
+                }
+              end
+            }
+          } if @news
+        }
+      end
+      builder.to_xml
     end
 
     def fetch_topics
@@ -60,7 +91,8 @@ module NewsFetch
             news[:description],
             '',
             topic)
-          n.parse_news!(Nokogiri::HTML(open(news[:link])))
+          page = Nokogiri::HTML(open(news[:link]), nil, 'UTF-8' )
+          n.parse_news!(page)
           @lock.synchronize { @news[topic] << n }
         end
       rescue Exception => e
