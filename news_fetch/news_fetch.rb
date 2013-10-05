@@ -45,10 +45,11 @@ module NewsFetch
           @news.each { |topic, news|
             xml.topic(id: topic) {
               news.each do |n|
-                xml.news(id: n.id) {
+                xml.news(id: n.id, video: n.video, audio: n.audio) {
                   xml.title_ n.title
                   xml.description_ n.description
                   xml.url_ n.url
+                  xml.date_ n.date
                   xml.body_ n.body
                 }
               end
@@ -90,14 +91,16 @@ module NewsFetch
             news[:title],
             news[:description],
             '',
-            topic)
-          page = Nokogiri::HTML(open(news[:link]), nil, 'UTF-8' )
-          n.parse_news!(page)
-          @lock.synchronize { @news[topic] << n }
+            topic,
+            news[:published])
+          begin
+            page = Nokogiri::HTML(open(news[:link]), nil, 'UTF-8' )
+            n.parse_news!(page)
+            @lock.synchronize { @news[topic] << n }
+          rescue
+          end
         end
-      rescue Exception => e
-        puts e
-        puts e.backtrace
+      rescue
       end
       return @news[topic]
     end
