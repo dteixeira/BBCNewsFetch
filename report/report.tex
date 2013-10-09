@@ -10,7 +10,7 @@
 \usepackage{graphicx}           % images .png or .pdf w/ pdflatex OR .eps w/ latex
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}            % fonts
-\usepackage[utf8]{inputenc}     % 8 bits 
+\usepackage[utf8]{inputenc}     % 8 bits
 \usepackage{indentfirst}        % more on tables
 \usepackage{lastpage}           % to have lastpage in headers
 \usepackage{url}                % URLs
@@ -34,7 +34,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 %\thispagestyle{plain}   % not in the 1st page
-%% alternatively fancyplain could be used
+% alternatively fancyplain could be used
 
 % avoid widows and orphans
 \clubpenalty=300
@@ -78,11 +78,11 @@ O conjunto de dados usado será diretamente extraído de páginas \textit{web} s
 
 \section{Modelo Conceptual de Domínio}\label{sec:model}
 
-A unidade de dados usada no domínio deste serviço é a notícia. Uma notícia inclui os seguintes atributos: id, título, descrição, o corpo da notícia, a data de publicação, e o endereço de consulta na página da \textit{BBC News}. Existem outros atributos adicionais de uma notícia, nomeadamente o número de vezes que a notícia foi partilhada nas redes sociais e a indicação se a notícia contém conteúdo áudio e/ou vídeo. É possível que em versões posteriores as notícias possam incluir novos atributos (ver Figura \ref{fig:domain}).
+A unidade de dados usada no domínio deste serviço é a notícia. Uma notícia inclui os seguintes atributos: \textit{id}, título, descrição, o corpo da notícia, a data de publicação, e o endereço de consulta na página da \textit{BBC News}. Existem outros atributos adicionais de uma notícia, nomeadamente o número de vezes que a notícia foi partilhada nas redes sociais e a indicação se a notícia contém conteúdo áudio e/ou vídeo. É possível que em versões posteriores as notícias possam incluir novos atributos (ver Figura \ref{fig:domain}).
 
 \begin{figure}[ht]
 \centerline{\includegraphics[width=0.4\textwidth]{domain.png}}
-\caption{{\it Modelo conceptual de domínio.}}  
+\caption{{\it Modelo conceptual de domínio.}}
 \label{fig:domain}
 \end{figure}
 
@@ -124,6 +124,8 @@ Por fim, foram ainda estudadas possibilidades de ordenação de resultados. Para
 Mais tarde, com posterior análise às páginas web obtidas, poderá ser possível encontrar novos métodos de organização ou refinamento de pesquisas.
 
 \section{Conclusões}\label{sec:conclude}
+
+Espera-se que a ferramenta produzida em seguimento deste estudo seja realmente útil, e que enriqueça a experiência dos utilizadores das plataformas web de informação da \textit{BBC News}. Para além das funcionalidades já descritas neste documento, existe ainda espaço para acrescentar novos métodos de pesquisa e refinamento, à medida que forem identificadas novas propriedades do conjunto de dados analisado.
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
