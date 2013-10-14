@@ -5,6 +5,7 @@ require File.join(File.dirname(__FILE__), 'news.rb')
 
 # external requires
 require 'nokogiri'
+require 'uri'
 require 'open-uri'
 require 'singleton'
 require 'json'
@@ -50,6 +51,7 @@ module NewsFetch
                   xml.description_ n.description
                   xml.url_ n.url
                   xml.date_ n.date
+                  xml.thumbnail_ n.thumbnail
                   xml.body_ n.body
                 }
               end
@@ -92,12 +94,14 @@ module NewsFetch
             news[:description],
             '',
             topic,
-            news[:published])
+            news[:published],
+            news[:thumbnail])
           begin
             page = Nokogiri::HTML(open(news[:link]), nil, 'UTF-8' )
             n.parse_news!(page)
             @lock.synchronize { @news[topic] << n }
-          rescue
+          rescue Exception => e
+            puts e
           end
         end
       rescue

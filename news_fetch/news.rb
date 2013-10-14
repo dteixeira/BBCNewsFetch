@@ -5,10 +5,10 @@ require 'nokogiri'
 module NewsFetch
   class News
     attr_accessor :title, :body, :url, :description, :id, :topic,
-      :video, :audio, :date
+      :video, :audio, :thumbnail, :date
 
     def initialize(*args)
-      @id, @url, @title, @description, @body, @topic, @date = args
+      @id, @url, @title, @description, @body, @topic, @date, @thumbnail = args
       @audio = false
       @video = false
     end
