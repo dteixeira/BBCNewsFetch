@@ -20,8 +20,10 @@ module NewsFetch
       check_media(page)
 
       # parse and clean the news' body
-      if(page.at_css('div.article'))
+      if(page.at_css('div.story-body div.article'))
         page = page.css('div.story-body div.article > p')
+      elsif(page.at_css('div.story-body div.map-body'))
+        page = page.css('div.story-body div.map-body > p') + page.css('div.story-body div.map-body div.extra-content > p')
       else
         page = page.css('div.story-body > p')
       end
@@ -30,7 +32,7 @@ module NewsFetch
 
     private
     def clear_line(line)
-      return (line.content.strip().gsub(/\s+/, ' ').gsub('&', 'and'))
+      return (line.content.strip().gsub(/\s+/, ' ').gsub('&', 'and')) + ' '
     end
 
     def check_media(page)

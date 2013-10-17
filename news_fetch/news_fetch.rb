@@ -20,7 +20,7 @@ module NewsFetch
     TOPICS_ROOT = :topics
     NEWS_URL = 'http://api.bbcnews.appengine.co.uk/stories/'
     NEWS_ROOT = :stories
-    URL_WHITE_LIST = %w[www.bbc.co.uk]
+    URL_WHITE_LIST = %w[www.bbc.co.uk/news/ www.bbc.co.uk/sport/]
 
     public
     attr_reader :topics, :news
@@ -99,7 +99,9 @@ module NewsFetch
           begin
             page = Nokogiri::HTML(open(news[:link]), nil, 'UTF-8' )
             n.parse_news!(page)
-            @lock.synchronize { @news[topic] << n }
+            if(n.audio || n.video || (!n.body.empty?))
+              @lock.synchronize { @news[topic] << n }
+            end
           rescue Exception => e
             puts e
           end
