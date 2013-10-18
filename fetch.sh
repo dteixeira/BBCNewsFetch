@@ -3,5 +3,5 @@ sleep 5m
 while :
 do
   cd /home/diogo/Repositories/Ruby/BBCNewsFetch/ && ruby fetch.rb
-  sleep 2h
+  sleep 120m
 done
