@@ -5,19 +5,21 @@ require File.join(File.dirname(__FILE__), 'news_fetch', 'news_fetch.rb')
 
 LOG_DIRECTORY = 'news_logs'
 
-# fetch topics
+# fetch topics (no longer applies)
 total_time = 0
+=begin
 print 'Fetching topics..... '
 start = Time.now
 NewsFetch::Fetcher.instance.fetch_topics
 start = (Time.now - start) * 1000.0
 total_time += start
 puts start.floor.to_s + ' ms'
+=end
 
 # fetch news
 print 'Fetching news....... '
 start = Time.now
-NewsFetch::Fetcher.instance.fetch_all_news
+NewsFetch::Fetcher.instance.fetch_all_news_rss
 start = (Time.now - start) * 1000.0
 total_time += start
 puts start.floor.to_s + ' ms'
